@@ -7,11 +7,13 @@ package misiontic.reflix.repositorios;
 
 import misiontic.reflix.modelos.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Danie
  */
+@Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, String>{
     
 }
