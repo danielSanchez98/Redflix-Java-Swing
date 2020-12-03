@@ -47,6 +47,8 @@ public class Home extends javax.swing.JFrame {
     private List<Pelicula> peliculas;
     private List<Serie> series;
     private List<Usuario> usuarios;
+    
+    int xx,yy;
 
     public Home() {
         initComponents();
@@ -142,6 +144,16 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(45, 45, 45));
         jPanel1.setForeground(new java.awt.Color(45, 45, 45));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jLabel13.setBackground(new java.awt.Color(51, 51, 255));
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -848,12 +860,21 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_crearUsuarioBtnMousePressed
 
     private void editusuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editusuarioMousePressed
-        
-        
         UsuarioForm usrFrom = new UsuarioForm(false, getRowUsr());
         usrFrom.setVisible(true);
         actualizarLista("usuario");
     }//GEN-LAST:event_editusuarioMousePressed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
 
     Usuario getRowUsr(){
         Usuario usr = new Usuario();

@@ -28,6 +28,13 @@ public class UsuarioForm extends javax.swing.JDialog {
     boolean crear;
     Usuario usuario;
     UsuarioRepositorio usuarioRepositorio;
+    boolean aliasChk;
+    boolean nombreChk;
+    boolean apellidoChk;
+    boolean emailChk;
+    boolean celularChk;
+    boolean fechaChk;
+    boolean passwordChk;
 
     /**
      * Creates new form UsuarioForm
@@ -53,8 +60,8 @@ public class UsuarioForm extends javax.swing.JDialog {
         passwordInfo.setVisible(false);
         UsrFormInfo.setVisible(false);
 
-        String[] args = {};
-        RedlixApplication.runSpringServer(args);
+       // String[] args = {};
+       // RedlixApplication.runSpringServer(args);
 
         usuarioRepositorio = SpringContext.getBean(UsuarioRepositorio.class);
 
@@ -66,6 +73,14 @@ public class UsuarioForm extends javax.swing.JDialog {
             celularUsr.setText(usuario.getCelular());
             passwordUsr.setText(usuario.getContrasena());
             nacimientoUsr.setText(usuario.getFechaNacimiento() + "");
+            aliasUsr.setEditable(false);
+            aliasChk = true;
+            nombreChk = true;
+            apellidoChk = true;
+            emailChk = true;
+            celularChk = true;
+            fechaChk = true;
+            passwordChk = true;
         }
 
     }
@@ -114,15 +129,39 @@ public class UsuarioForm extends javax.swing.JDialog {
             }
         });
 
+        nombreUsr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nombreUsrFocusLost(evt);
+            }
+        });
+
         try {
             nacimientoUsr.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
+        apellidoUsr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                apellidoUsrFocusLost(evt);
+            }
+        });
+
         emailUsr.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 emailUsrFocusLost(evt);
+            }
+        });
+
+        celularUsr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                celularUsrFocusLost(evt);
+            }
+        });
+
+        passwordUsr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordUsrFocusLost(evt);
             }
         });
 
@@ -282,7 +321,7 @@ public class UsuarioForm extends javax.swing.JDialog {
                 .addComponent(passwordUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nacimientoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaInfo)
@@ -310,10 +349,12 @@ public class UsuarioForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void emailUsrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailUsrFocusLost
-        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", emailUsr.getText()))) {
+        if (!(Pattern.matches("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$", emailUsr.getText()))) {
             emailInfo.setVisible(true);
+            emailChk = false;
         } else {
             emailInfo.setVisible(false);
+            emailChk = true;
         }
 
 
@@ -329,9 +370,11 @@ public class UsuarioForm extends javax.swing.JDialog {
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
         try {
-            crear();
+            if (chkForm()) {
+                crear();
 
-            dispose();
+                dispose();
+            }
         } catch (Exception e) {
 
         }
@@ -339,6 +382,7 @@ public class UsuarioForm extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jButton2MousePressed
     void crear() throws ParseException {
+
         String bufDt = nacimientoUsr.getText();  //data from form
         DateFormat dF = new SimpleDateFormat("yyyy-MM-dd"); //data in form is in this format
         Date bbdt = (Date) dF.parse(bufDt);  // string data is converted into java util date     
@@ -354,6 +398,52 @@ public class UsuarioForm extends javax.swing.JDialog {
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         dispose();
     }//GEN-LAST:event_jButton1MousePressed
+
+    private boolean chkForm() {
+        if (nombreChk && apellidoChk && celularChk && passwordChk && emailChk) {
+            return true;
+        }
+        return false;
+    }
+    private void nombreUsrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreUsrFocusLost
+        if ((nombreUsr.getText().length() < 2)) {
+            nombreInfo.setVisible(true);
+            nombreChk = false;
+        } else {
+            nombreInfo.setVisible(false);
+            nombreChk = true;
+        }
+    }//GEN-LAST:event_nombreUsrFocusLost
+
+    private void apellidoUsrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_apellidoUsrFocusLost
+        if ((apellidoUsr.getText().length() < 2)) {
+            apellidoInfo.setVisible(true);
+            apellidoChk = false;
+        } else {
+            apellidoInfo.setVisible(false);
+            apellidoChk = true;
+        }
+    }//GEN-LAST:event_apellidoUsrFocusLost
+
+    private void celularUsrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_celularUsrFocusLost
+        if ((celularUsr.getText().length() < 8)) {
+            celularInfo.setVisible(true);
+            celularChk = false;
+        } else {
+            celularInfo.setVisible(false);
+            celularChk = true;
+        }
+    }//GEN-LAST:event_celularUsrFocusLost
+
+    private void passwordUsrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordUsrFocusLost
+        if ((passwordUsr.getText().length() < 6)) {
+            passwordInfo.setVisible(true);
+            passwordChk = false;
+        } else {
+            passwordInfo.setVisible(false);
+            passwordChk = true;
+        }
+    }//GEN-LAST:event_passwordUsrFocusLost
 
     /**
      * @param args the command line arguments

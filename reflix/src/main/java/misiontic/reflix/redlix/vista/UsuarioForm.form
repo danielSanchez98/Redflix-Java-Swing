@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -158,7 +158,7 @@
                   <Component id="passwordUsr" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="nacimientoUsr" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="fechaInfo" min="-2" max="-2" attributes="0"/>
@@ -181,6 +181,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="nombreUsr">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreUsrFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="nacimientoUsr">
           <Properties>
@@ -190,6 +193,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="apellidoUsr">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="apellidoUsrFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="emailUsr">
           <Events>
@@ -197,8 +203,14 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="celularUsr">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="celularUsrFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="passwordUsr">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="passwordUsrFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
