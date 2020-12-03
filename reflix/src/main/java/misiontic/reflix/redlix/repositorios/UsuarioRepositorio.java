@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package misiontic.reflix.repositorios;
+package misiontic.reflix.redlix.repositorios;
 
-import misiontic.reflix.modelos.Serie;
+import misiontic.reflix.redlix.modelos.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Danie
  */
-public interface SerieRepositorio extends JpaRepository<Serie, Integer>{
+@Repository
+public interface UsuarioRepositorio extends JpaRepository<Usuario, String>{
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package misiontic.reflix.modelos;
+package misiontic.reflix.redlix.modelos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ public class Pelicula {
     @Id
     @GeneratedValue
     @Column(name="id_pelicula")
-    Integer idPelicula;
+    String idPelicula;
     
     @Column(name="titulo")
     String titulo;
@@ -30,19 +30,19 @@ public class Pelicula {
     String resumen;
     
     @Column(name="anio")
-    String anio;
+    Integer anio;
     
     @Column(name="id_contenido")
-    String idContenido;
+    Integer idContenido;
     
     @Column(name="id_director")
-    String idDirector;
+    Integer idDirector;
 
-    public Integer getIdPelicula() {
+    public String getIdPelicula() {
         return idPelicula;
     }
 
-    public void setIdPelicula(Integer idPelicula) {
+    public void setIdPelicula(String idPelicula) {
         this.idPelicula = idPelicula;
     }
 
@@ -62,27 +62,27 @@ public class Pelicula {
         this.resumen = resumen;
     }
 
-    public String getAnio() {
+    public Integer getAnio() {
         return anio;
     }
 
-    public void setAnio(String anio) {
+    public void setAnio(Integer anio) {
         this.anio = anio;
     }
 
-    public String getIdContenido() {
+    public Integer getIdContenido() {
         return idContenido;
     }
 
-    public void setIdContenido(String idContenido) {
+    public void setIdContenido(Integer idContenido) {
         this.idContenido = idContenido;
     }
 
-    public String getIdDirector() {
+    public Integer getIdDirector() {
         return idDirector;
     }
 
-    public void setIdDirector(String idDirector) {
+    public void setIdDirector(Integer idDirector) {
         this.idDirector = idDirector;
     }
     
