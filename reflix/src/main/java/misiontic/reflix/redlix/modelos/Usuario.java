@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
 
+
 /**
  *
  * @author Danie
@@ -39,6 +40,20 @@ public class Usuario {
     
     @Column(name = "fecha_nacimiento")
     Date fechaNacimiento;
+
+    public Usuario(String alias, String nombre, String apellido, String email, String celular, String contrasena, Date fechaNacimiento) {
+        this.alias = alias;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.celular = celular;
+        this.contrasena = contrasena;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    public Usuario(){
+    }
+    
+    
 
     public String getAlias() {
         return alias;

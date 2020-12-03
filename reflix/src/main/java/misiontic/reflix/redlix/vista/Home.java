@@ -7,6 +7,7 @@ package misiontic.reflix.redlix.vista;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -122,8 +123,8 @@ public class Home extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_usuarios = new javax.swing.JTable();
         del_usuario = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        editusuario = new javax.swing.JButton();
+        crearUsuarioBtn = new javax.swing.JButton();
         pnlCard5 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -575,7 +576,22 @@ public class Home extends javax.swing.JFrame {
             new String [] {
                 "Alias", "Nombre", "Apellido", "Email", "Celular", "Contraseña", "Fecha de Nacimiento"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl_usuarios.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tbl_usuarios);
 
@@ -586,9 +602,19 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Editar");
+        editusuario.setText("Editar");
+        editusuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editusuarioMousePressed(evt);
+            }
+        });
 
-        jButton8.setText("Crear");
+        crearUsuarioBtn.setText("Crear");
+        crearUsuarioBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                crearUsuarioBtnMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCard4Layout = new javax.swing.GroupLayout(pnlCard4);
         pnlCard4.setLayout(pnlCard4Layout);
@@ -598,9 +624,9 @@ public class Home extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(pnlCard4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlCard4Layout.createSequentialGroup()
-                        .addComponent(jButton8)
+                        .addComponent(crearUsuarioBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7)
+                        .addComponent(editusuario)
                         .addGap(18, 18, 18)
                         .addComponent(del_usuario))
                     .addGroup(pnlCard4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -618,8 +644,8 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(del_usuario)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
+                    .addComponent(editusuario)
+                    .addComponent(crearUsuarioBtn))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -631,6 +657,9 @@ public class Home extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(51, 51, 51));
         jLabel18.setText("Directores");
 
+        jScrollPane5.setBackground(new java.awt.Color(204, 204, 204));
+        jScrollPane5.setForeground(new java.awt.Color(204, 204, 204));
+
         tbl_directores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -639,6 +668,7 @@ public class Home extends javax.swing.JFrame {
                 "id", "Nombre", "Apellido", "Nacionalidad"
             }
         ));
+        tbl_directores.setOpaque(false);
         jScrollPane5.setViewportView(tbl_directores);
 
         del_director.setText("Eliminar");
@@ -810,6 +840,33 @@ public class Home extends javax.swing.JFrame {
         eliminar("director");
     }//GEN-LAST:event_del_directorMousePressed
 
+    private void crearUsuarioBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearUsuarioBtnMousePressed
+        
+        UsuarioForm usrFrom = new UsuarioForm(true, null);
+        usrFrom.setVisible(true);
+         actualizarLista("usuario");
+    }//GEN-LAST:event_crearUsuarioBtnMousePressed
+
+    private void editusuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editusuarioMousePressed
+        
+        
+        UsuarioForm usrFrom = new UsuarioForm(false, getRowUsr());
+        usrFrom.setVisible(true);
+        actualizarLista("usuario");
+    }//GEN-LAST:event_editusuarioMousePressed
+
+    Usuario getRowUsr(){
+        Usuario usr = new Usuario();
+        usr.setAlias( (String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 0) );
+        usr.setNombre((String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 1));
+        usr.setApellido((String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 2));
+        usr.setEmail((String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 3));
+        usr.setCelular((String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 4));
+        usr.setContrasena((String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 5));
+        usr.setFechaNacimiento((Date) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 6));
+    
+        return usr;
+    }
     void setColor(JPanel panel) {
         panel.setBackground(new Color(102, 102, 102));
     }
@@ -919,6 +976,7 @@ public class Home extends javax.swing.JFrame {
             case "usuario":
                 try {
                 usuarios = usuarioRepositorio.findAll();
+                    System.out.println(usuarios);
                 DefaultTableModel modelo = (DefaultTableModel) tbl_usuarios.getModel();
                 int numCols = modelo.getColumnCount();
 
@@ -970,8 +1028,8 @@ public class Home extends javax.swing.JFrame {
                 break;
             case "usuario":
                 if (response == JOptionPane.YES_OPTION) {
-                    String usuarioId = (String) tbl_usuarios.getModel().getValueAt(tbl_usuarios.getSelectedRow(), 0);
-                    System.out.println(usuarioId);
+                    usuarioRepositorio.delete(getRowUsr());
+                    actualizarLista("usuario");
                 }
                 break;
 
@@ -1019,10 +1077,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel btn_peliculas;
     private javax.swing.JPanel btn_series;
     private javax.swing.JPanel btn_usuarios;
+    private javax.swing.JButton crearUsuarioBtn;
     private javax.swing.JButton del_director;
     private javax.swing.JButton del_peliculas;
     private javax.swing.JButton del_serie;
     private javax.swing.JButton del_usuario;
+    private javax.swing.JButton editusuario;
     private javax.swing.JPanel ind_contenidos;
     private javax.swing.JPanel ind_directores;
     private javax.swing.JPanel ind_peliculas;
@@ -1034,8 +1094,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
